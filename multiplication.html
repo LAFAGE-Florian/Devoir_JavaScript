@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Multiplication</title>
+		<link href="multiplication.css" rel="stylesheet" type="text/css" />
+		<script src="multiplication.mjs" type="text/javascript" defer></script>
+	</head>
+	<body>
+		<h1>Faisons des multiplications</h1>
+		<form id='multiplication' onsubmit='return false;'>
+			<input name="gauche" type="number" size="5" value="5" required  />
+			<label for="droite">*</label>
+			<input name="droite" type="number" size="5" value="6" required />
+			<label for="produit"> = </label>
+			<input name="produit" type="number" size="5" readonly />
+			<div>
+				<button name='calculer' id='calculer'>Calculer</button>
+				<button name='changer' id='changer'>Changer gauche</button>
+			</div>
+		</form>
+	</body>

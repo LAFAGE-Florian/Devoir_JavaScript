@@ -1,0 +1,70 @@
+.button {
+	background-color: lightyellow;
+	color: darkblue;
+	border: 1px solid black;
+}
+
+.cache {
+	visibility: visible;
+	display: none;
+}
+
+h1 {
+	text-align: center;
+}
+
+oll {
+	list-style: none;
+	counter-reset: books-counter;
+	padding: 0;
+}
+
+div.title {
+	counter-increment: books-counter;
+}
+
+div.title:before {
+   margin-right: 10px;
+   content: counter(books-counter) ".";
+   display: inline-block;
+}
+
+dt {
+	color: indigo;
+	font-weight: bold;
+}
+
+dd {
+	color: DarkGreen;
+}
+
+p {
+	color: green;
+}
+
+div.title {
+	color: blue;
+	font-size: 150%;
+	background-color: lightgrey;
+	font-weight: bold;
+	padding: 0.5em;
+	margin-left: 0;
+	margin-top: 1em;
+	margin-bottom: .5em;
+}
+
+table, th, td  {
+	border: 1px solid black;
+	padding: 4px;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+#montrer-description,
+#cacher-description {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
