@@ -1,0 +1,17 @@
+div.countdown {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: darkblue;
+    font-weight: bold;
+    font-size: 500%;
+}
+
+.scroll {
+  height: 133px;
+  width: 100px;
+  border: 2px solid black;
+  overflow: auto;
+  display: flex;
+  flex-direction: column-reverse;
+}

@@ -51,56 +51,67 @@ const books = [
 /** Produire un DOM pour représenter un tableau de livres,
  * ajoutés comme dernier de l'élément body.
  */
-function display(books) {
-  console.info("Constuire le DOM...");
-  const ol = document.createElement('ol');
 
-  for (const indice in books){
+
+// Avec la méthode for
+function display(books) { // Que ici à compéleter pour l'instant !
+	console.info("Constuire le DOM...");
+  const ol = document.createElement('ol');
+  ol.setAttribute('List', "Liste livres");
+  document.body.append(ol);
+
+  for (const book of books) {
     const li = document.createElement('li');
     ol.append(li);
-    li.setAttribute("id", books[indice].isbn);
-    li.setAttribute("class", books[indice].title);
-
-    const e1 = document.createTextNode(books[indice].title);
-    li.append(e1);
+    const div = document.createElement('div');
+    div.className = "title";
+    div.innerText = book.title;
+    li.appendChild(div);
+    li.id = book.isbn;
+    li.className = book.title;
     const dl = document.createElement('dl');
-    li.append(dl)
+    dl.className = 'descriptions';
+    li.append(dl);
 
-    for (const [attribut, valeur] of Object.entries(books[indice])) {
-      if (attribut !== "title"){
-
+    for (const [attribut, valeur] of Object.entries(book)) {
+      if (attribut !== 'title') {
         const dt = document.createElement('dt');
-        dl.append(dt)
-        //const textdt = document.createTextNode(attribut);
-        dt.append(attribut)
-        dt.setAttribute("class", attribut);
-
+        dt.setAttribute("attribut", "caractéristique");
+        dt.className = attribut;
+        const dt_p = document.createTextNode(attribut);
+        dl.append(dt);
+        dt.appendChild(dt_p);
         const dd = document.createElement('dd');
+        dd.setAttribute("valeur", "contenu");
+        dd.className = attribut;
+        const dd_p = document.createTextNode(valeur);
+        dd.appendChild(dd_p);
         dl.append(dd);
-        //const textdd = document.createTextNode(valeur);
-        dd.append(valeur)
       }
     }
+    li.addEventListener("dblclick", e  => {
+      dl.classList.toggle("cache");
+    })
   }
-  document.body.append(ol)
+
 }
 
 
-/** Récupérer une liste de livres depuis le document précédent.
+/** Récupérer une liste de livres depuis le document précédents.
   * Les livres n'auront que les champs : title, pageCount, categories et authors.
   * @return un tableau de livre, chaque livre a les attributs ci-dessus.
   */
-function domBooksToJSON() { 
+function domBooksToJSON() {
   const books = [];
-  const lis = document.getElementsByTagName('li');
- 
-  
-  for (const li of lis) {
-    const title = li.firstChild.wholeText;
-    const book = {title : title};
-    books.push(book);
-    console.log("book =", book);
+	const livres = document.getElementsByTagName('li');
 
+  for (const li of livres) {
+    const title = li.firstChild.innerText;
+    const book = {title: title};
+    console.log(book)
+    books.push(book);
+    console.log('book = ', book);
+    
     for (const dt of li.getElementsByTagName('dt')) {
       const dd = dt.nextSibling;
       book[dt.innerText] = dd.innerText;
@@ -110,54 +121,67 @@ function domBooksToJSON() {
 }
 
 
-
 /** Produit un élément table qui contient les informations sur books,
  * un tableau de books avec les attributs précisés.
  */
 function booksToTable(books, attributs = ['title', 'pageCount', 'categories', 'authors']) {
-	// TODO : à faire
-  const table = document.createElement("table");
-  const thead = document.createElement("thead");
-  const tr = document.createElement("tr");
-  const tbody = document.createElement("tbody");
-  table.append(tbody);
+	const table = document.createElement('table');
+  table.setAttribute('table', 'infos livres');
+
+  const thead = document.createElement('thead');
   table.append(thead);
-  thead.append(tr);
-  
+  const tr_head = document.createElement('tr');
+  thead.append(tr_head);
 
   for (const element of attributs) {
-    const th = document.createElement("th");
+    const th = document.createElement('th');
     th.append(element);
-    tr.append(th); 
+    tr_head.append(th);
   }
+
+  const tbody = document.createElement('tbody');
+  table.append(tbody);
 
   for (const book of books) {
-    const tr2 = document.createElement("tr");
-    tbody.append(tr2);
+    const tr = document.createElement('tr');
+    tbody.append(tr);
 
     for (const attribut of attributs) {
-      const td = document.createElement("td");
+      const td = document.createElement('td');
       td.append(book[attribut]);
-      tr2.append(td);
+      tr.append(td);
     }
   }
+
   return table;
 }
-  // par book je veux que afficher en thead dans un tr les th de toutes mes clés 
-  // et en tbody dans un tr les td de toutes mes valeurs qui correspondent
 
 
-const montrer = document.getElementById("montrer");
-const cacher = document.getElementById("cacher");
+function chargerEvenement() {
+  // Afficher ou cacher les shortDescription
+  const cacher = document.getElementById("cacher");
+  const montrer  = document.getElementById("montrer");
+  console.log('cacher = ', cacher);
 
+  function all_short_description() {
+    const allDt = document.getElementsByClassName('shortDescription');
+    return allDt;
+  }
 
-montrer.addEventListener("click", () => {
-  .classList.add(cache))
+  cacher.addEventListener('click', e => {
+    for (const el of all_short_description()) {
+      el.classList.add('cache');
+    }
+  });
+
+  montrer.addEventListener('click', e => {
+    for (const el of all_short_description()) {
+      el.classList.remove('cache');
+    }
+  })
+
 }
-  
 
-
-cacher.addEventListener("click", () =>)
 
 window.addEventListener('load', () => {
 	display(books);
@@ -166,7 +190,7 @@ window.addEventListener('load', () => {
 	const booksFromDom = domBooksToJSON();
 	console.log("booksFromDom:", booksFromDom);
 	// Insérer dans body le résultat de booksToTable(booksFromDom)
-  document.body.append(booksToTable(booksFromDom))
+  document.body.append(booksToTable(booksFromDom));
+  chargerEvenement();
 });
-
 

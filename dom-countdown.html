@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title>A little countdown</title>
+    <link href="dom-countdown.css" rel="stylesheet" type="text/css" />
+    <script src="dom-countdown.mjs" type="text/javascript" defer></script>
+  </head>
+  <body>
+    <div class="countdown">
+      <span id="countdown-value">XXX</span>
+    </div>
+    <form id="countdown-form" onsubmit="return false;">
+      <div>
+    <button name="reset">reset</button>
+    <button name="intermediate">intermediate</button>
+    <button name="stop">stop</button>
+    <button name="resume">resume</button>
+      </div>
+      <div>
+    <label for="initialValue">Initial value : </label>
+    <input name="initialValue" type="number" value="1000" size="6" />
+      </div>
+    </form>
+    <h2>Intermediate values</h2>
+    <div class="scroll">
+    <ol id="intermediate-values" />
+  </div>
+  </body>
+</html>
